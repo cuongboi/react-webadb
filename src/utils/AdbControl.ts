@@ -26,7 +26,7 @@ class AdbControl {
    */
   public async inputText(text: string): Promise<void> {
     try {
-      await this.adb.subprocess.spawnAndWait(`input text ${text}`);
+      await this.adb.subprocess.spawnAndWait(`input text "${text}"`);
     } catch (error) {
       console.error(`Error simulating text input "${text}":`, error);
       throw error;
@@ -41,7 +41,7 @@ class AdbControl {
    */
   public async inputKeyevent(key: string): Promise<void> {
     try {
-      await this.adb.subprocess.spawnAndWait(`input keyevent ${key}`);
+      await this.adb.subprocess.spawnAndWait(`input keyevent "${key}"`);
     } catch (error) {
       console.error(`Error simulating key event "${key}":`, error);
       throw error;

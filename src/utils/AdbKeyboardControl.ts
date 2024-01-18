@@ -2,7 +2,6 @@ import AdbControl from "./AdbControl";
 
 const keyboardControl = (control: AdbControl) => {
   const specialKeyMapping: Record<string, string> = {
-    Space: "SPACE",
     Backspace: "DEL",
     Enter: "ENTER",
     Delete: "DEL",
