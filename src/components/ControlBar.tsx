@@ -7,7 +7,7 @@ const ControlBar: React.FC<{
   return (
     <div className="flex gap-2 flex-wrap flex-col justify-center [&>button]:w-10 absolute rounded-l-xl left-0 md:-left-10 top-0 w-10 h-full bg-white">
       <button
-        className="p-2 flex justify-center items-center bg-gray-200 focus:outline-none"
+        className="p-2 flex justify-center items-center focus:outline-none"
         onClick={() => device?.control?.inputKeyevent("KEYCODE_HOME")}
       >
         <svg
@@ -24,7 +24,7 @@ const ControlBar: React.FC<{
       </button>
 
       <button
-        className="p-2 flex justify-center items-center bg-gray-200 focus:outline-none"
+        className="p-2 flex justify-center items-center focus:outline-none"
         onClick={() => device?.control?.inputKeyevent("KEYCODE_BACK")}
       >
         <svg
@@ -41,7 +41,7 @@ const ControlBar: React.FC<{
       </button>
 
       <button
-        className="p-2 flex justify-center items-center bg-gray-200 focus:outline-none"
+        className="p-2 flex justify-center items-center focus:outline-none"
         onClick={() => device?.control?.inputKeyevent("KEYCODE_MENU")}
       >
         <svg
@@ -58,7 +58,7 @@ const ControlBar: React.FC<{
       </button>
 
       <button
-        className="p-2 flex justify-center items-center bg-gray-200 focus:outline-none"
+        className="p-2 flex justify-center items-center focus:outline-none"
         onClick={() => device?.control?.inputKeyevent("KEYCODE_VOLUME_UP")}
       >
         <svg
@@ -76,7 +76,7 @@ const ControlBar: React.FC<{
       </button>
 
       <button
-        className="p-2 flex justify-center items-center bg-gray-200 focus:outline-none"
+        className="p-2 flex justify-center items-center focus:outline-none"
         onClick={() => device?.control?.inputKeyevent("KEYCODE_VOLUME_DOWN")}
       >
         <svg
@@ -93,7 +93,7 @@ const ControlBar: React.FC<{
       </button>
 
       <button
-        className="p-2 flex justify-center items-center bg-gray-200 focus:outline-none"
+        className="p-2 flex justify-center items-center focus:outline-none"
         onClick={() => device?.control?.inputKeyevent("KEYCODE_POWER")}
       >
         <svg
@@ -110,7 +110,7 @@ const ControlBar: React.FC<{
       </button>
 
       <button
-        className="p-2 flex justify-center items-center bg-gray-200 focus:outline-none"
+        className="p-2 flex justify-center items-center focus:outline-none"
         onClick={() => device?.control?.inputKeyevent("KEYCODE_SYSRQ")}
       >
         <svg
@@ -126,7 +126,7 @@ const ControlBar: React.FC<{
         </svg>
       </button>
       <button
-        className="p-2 w-20 flex justify-center items-center bg-gray-200 focus:outline-none"
+        className="p-2 w-20 flex justify-center items-center focus:outline-none"
         onClick={() => loadDevice?.()}
       >
         <svg
