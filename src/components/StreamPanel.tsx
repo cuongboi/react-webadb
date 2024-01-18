@@ -29,7 +29,7 @@ const StreamPanel: React.FC<{
             onClick={() => loadDevice()}
           >
             {isLoading ? (
-              "Loading ..."
+              "Connecting ..."
             ) : (
               <svg
                 viewBox="64 64 896 896"
