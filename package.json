@@ -1,0 +1,38 @@
+{
+  "name": "next-adb",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "postinstall": "fetch-scrcpy-server 2.1"
+  },
+  "dependencies": {
+    "@yume-chan/adb": "^0.0.22",
+    "@yume-chan/adb-credential-web": "^0.0.22",
+    "@yume-chan/adb-daemon-webusb": "^0.0.22",
+    "@yume-chan/adb-scrcpy": "^0.0.22",
+    "@yume-chan/adb-server-node-tcp": "^0.0.22",
+    "@yume-chan/event": "^0.0.22",
+    "@yume-chan/fetch-scrcpy-server": "^0.0.22",
+    "@yume-chan/scrcpy": "^0.0.22",
+    "@yume-chan/scrcpy-decoder-tinyh264": "^0.0.22",
+    "@yume-chan/stream-extra": "^0.0.22",
+    "next": "14.0.4",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.0.1",
+    "eslint": "8.56.0",
+    "eslint-config-next": "14.0.4",
+    "postcss": "^8",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5"
+  }
+}
