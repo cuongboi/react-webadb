@@ -37,6 +37,10 @@ class AdbDevice {
     return this.#brand;
   }
 
+  get serial(): string {
+    return this._device.serial;
+  }
+
   constructor(private readonly _device: AdbDaemonWebUsbDevice) {}
 
   static async init(device: AdbDaemonWebUsbDevice): Promise<AdbDevice> {
@@ -140,6 +144,10 @@ class AdbDevice {
       keyboardControl(control);
       stream.pipeTo(decoder.writable);
     });
+  }
+
+  public async close(): Promise<void> {
+    this.scrcpy?.close();
   }
 
   private async _transport() {
