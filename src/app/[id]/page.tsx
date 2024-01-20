@@ -24,8 +24,6 @@ const StreamPanel = ({
 
   useEffect(() => {
     (async () => {
-      document.documentElement.requestFullscreen();
-
       const video = getVideo();
       const peerConnection = await PeerConnection.init();
       const peerControl = new PeerControl(peerConnection);
