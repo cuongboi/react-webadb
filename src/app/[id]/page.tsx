@@ -24,6 +24,8 @@ const StreamPanel = ({
 
   useEffect(() => {
     (async () => {
+      document.documentElement.requestFullscreen();
+
       const video = getVideo();
       const peerConnection = await PeerConnection.init();
       const peerControl = new PeerControl(peerConnection);
@@ -48,7 +50,7 @@ const StreamPanel = ({
 
   return (
     <main
-      className={`flex flex-col h-screen items-center justify-center p-5 lg:p-10`}
+      className={`flex flex-col h-screen items-center justify-center p-0 lg:p-10`}
     >
       <div
         className={`h-full ${
