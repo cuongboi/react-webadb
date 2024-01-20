@@ -21,11 +21,17 @@ import { WebCodecsDecoder } from "./WebCodecsDecoder";
 
 const scrcpyServerPath = "/data/local/tmp/scrcpy-server.jar";
 
+export interface Metadata {
+  width: number;
+  height: number;
+}
+
 class AdbDevice {
   public adb: Adb | undefined;
   public control: AdbControl | undefined;
   public scrcpy: AdbScrcpyClient | undefined;
   private connection: AdbDaemonWebUsbConnection | undefined;
+  private _decoder: WebCodecsDecoder | undefined;
 
   #name: string = "Unknown";
   get name(): string {
@@ -41,6 +47,11 @@ class AdbDevice {
     return this._device.serial;
   }
 
+  #metadata: Metadata = { width: 0, height: 0 };
+  get metadata(): Metadata {
+    return this.#metadata;
+  }
+
   constructor(private readonly _device: AdbDaemonWebUsbDevice) {}
 
   static async init(device: AdbDaemonWebUsbDevice): Promise<AdbDevice> {
@@ -53,7 +64,7 @@ class AdbDevice {
     this.connection = await this._device.connect();
     this.adb = new Adb(await this._transport());
     this.scrcpy = await this.startScrcpy();
-    this.control = new AdbControl(this.adb);
+    this.control = AdbControl.init(this.adb);
     this.#name = await this.getProperty("ro.product.model");
     this.#brand = await this.getProperty("ro.product.manufacturer");
 
@@ -130,24 +141,51 @@ class AdbDevice {
     );
   }
 
-  async pushStream<T extends HTMLElement>(targetElement: T): Promise<void> {
+  public async pushStream<T extends HTMLElement>(
+    targetElement: T
+  ): Promise<void> {
     if (!this.adb) {
       throw new Error("adb not connected");
     }
 
-    const decoder = new WebCodecsDecoder(ScrcpyVideoCodecId.H264);
-    targetElement.appendChild(decoder.renderer);
+    this._stream();
+    targetElement.appendChild(this._decoder?.renderer!);
 
-    const control = new AdbControl(this.adb!);
     this.scrcpy?.videoStream?.then(({ stream, metadata }) => {
-      mouseControl(targetElement, metadata, control);
-      keyboardControl(control);
-      stream.pipeTo(decoder.writable);
+      mouseControl(targetElement, metadata, this.control!);
+      keyboardControl(this.control!);
     });
+  }
+
+  public getMediaStream(): MediaStream {
+    if (!this.adb) {
+      throw new Error("adb not connected");
+    }
+
+    this._stream();
+    return this._decoder?.getMediaStream()!;
   }
 
   public async close(): Promise<void> {
     this.scrcpy?.close();
+  }
+
+  private _stream() {
+    if (!this.adb) {
+      throw new Error("adb not connected");
+    }
+
+    if (!this._decoder) {
+      this._decoder = new WebCodecsDecoder(ScrcpyVideoCodecId.H264);
+
+      this.scrcpy?.videoStream?.then(({ stream, metadata }) => {
+        this.#metadata = {
+          width: metadata.width || 0,
+          height: metadata.height || 0,
+        };
+        stream.pipeTo(this._decoder?.writable!);
+      });
+    }
   }
 
   private async _transport() {

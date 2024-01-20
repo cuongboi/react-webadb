@@ -1,14 +1,23 @@
 import { Adb } from "@yume-chan/adb";
 
 class AdbControl {
-  constructor(private readonly adb: Adb) {}
+  #adb = {} as Adb;
 
-  /**
-   * Get a system property from the device.
-   *
-   * @param prop - The property name.
-   * @returns A Promise that resolves to the property value.
-   */
+  get adb(): Adb {
+    return this.#adb;
+  }
+
+  public static init(adb: Adb): AdbControl {
+    const adbControl = new AdbControl();
+    adbControl.bind(adb);
+
+    return adbControl;
+  }
+
+  public bind(adb: Adb): void {
+    this.#adb = adb;
+  }
+
   public async getProp(prop: string): Promise<string> {
     try {
       return await this.adb.getProp(prop);
@@ -18,12 +27,6 @@ class AdbControl {
     }
   }
 
-  /**
-   * Simulate text input on the device.
-   *
-   * @param text - The text to input.
-   * @returns A Promise that resolves when the input is complete.
-   */
   public async inputText(text: string): Promise<void> {
     try {
       await this.adb.subprocess.spawnAndWait(`input text "${text}"`);
@@ -33,12 +36,6 @@ class AdbControl {
     }
   }
 
-  /**
-   * Simulate a key press on the device.
-   *
-   * @param key - The key code to simulate.
-   * @returns A Promise that resolves when the key press is complete.
-   */
   public async inputKeyevent(key: string): Promise<void> {
     try {
       await this.adb.subprocess.spawnAndWait(`input keyevent "${key}"`);
@@ -48,13 +45,6 @@ class AdbControl {
     }
   }
 
-  /**
-   * Simulate a tap on the touchscreen at the specified coordinates.
-   *
-   * @param x - The x-coordinate.
-   * @param y - The y-coordinate.
-   * @returns A Promise that resolves when the tap is complete.
-   */
   public async inputTap(x: number, y: number): Promise<void> {
     try {
       await this.adb.subprocess.spawnAndWait(`input tap ${x} ${y}`);
@@ -64,16 +54,6 @@ class AdbControl {
     }
   }
 
-  /**
-   * Simulate a swipe on the touchscreen between two sets of coordinates.
-   *
-   * @param x1 - The starting x-coordinate.
-   * @param y1 - The starting y-coordinate.
-   * @param x2 - The ending x-coordinate.
-   * @param y2 - The ending y-coordinate.
-   * @param duration - The duration of the swipe in milliseconds.
-   * @returns A Promise that resolves when the swipe is complete.
-   */
   public async inputSwipe(
     x1: number,
     y1: number,

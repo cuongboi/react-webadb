@@ -69,7 +69,14 @@ export class WebCodecsDecoder implements ScrcpyVideoDecoder {
 
   #context: CanvasRenderingContext2D;
   #decoder: VideoDecoder;
+  get decoder() {
+    return this.#decoder;
+  }
+
   #config: Uint8Array | undefined;
+  get config() {
+    return this.#config;
+  }
 
   #currentFrameRendered = false;
   #animationFrameId = 0;
@@ -89,11 +96,6 @@ export class WebCodecsDecoder implements ScrcpyVideoDecoder {
           this.#frameRendered += 1;
         }
 
-        // PERF: H.264 renderer may draw multiple frames in one vertical sync interval to minimize latency.
-        // When multiple frames are drawn in one vertical sync interval,
-        // only the last one is visible to users.
-        // But this ensures users can always see the most up-to-date screen.
-        // This is also the behavior of official Scrcpy client.
         // https://github.com/Genymobile/scrcpy/issues/3679
         this.#context.drawImage(frame, 0, 0);
         frame.close();
@@ -143,7 +145,6 @@ export class WebCodecsDecoder implements ScrcpyVideoDecoder {
         });
 
         // https://www.rfc-editor.org/rfc/rfc6381#section-3.3
-        // ISO Base Media File Format Name Space
         const codec = `avc1.${[profileIndex, constraintSet, levelIndex]
           .map(toHex)
           .join("")}`;
@@ -192,7 +193,6 @@ export class WebCodecsDecoder implements ScrcpyVideoDecoder {
       return;
     }
 
-    // WebCodecs requires configuration data to be with the first frame.
     // https://www.w3.org/TR/webcodecs-avc-codec-registration/#encodedvideochunk-type
     let data: Uint8Array;
     if (this.#config !== undefined) {
@@ -219,5 +219,10 @@ export class WebCodecsDecoder implements ScrcpyVideoDecoder {
     if (this.#decoder.state !== "closed") {
       this.#decoder.close();
     }
+  }
+
+  getMediaStream(frameRequestRate?: number | undefined): MediaStream {
+    const stream = this.#renderer.captureStream(frameRequestRate);
+    return stream;
   }
 }

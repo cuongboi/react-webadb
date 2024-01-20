@@ -1,13 +1,9 @@
 import AdbControl from "./AdbControl";
+import type { Metadata } from "./AdbDevice";
 
 interface Coordinates {
   x: number;
   y: number;
-}
-
-interface Metadata {
-  width?: number;
-  height?: number;
 }
 
 const calculateCoordinates = (
@@ -21,7 +17,10 @@ const calculateCoordinates = (
   };
 };
 
-const getRate = (metadata: Metadata, targetElement: HTMLElement): number => {
+const getRate = (
+  metadata: Partial<Metadata>,
+  targetElement: HTMLElement
+): number => {
   const rect = targetElement.getBoundingClientRect();
 
   return Math.min(rect.width / metadata.width!, rect.height / metadata.height!);
@@ -40,7 +39,7 @@ const isSwipeGesture = (
 
 const mouseControl = <T extends HTMLElement>(
   targetElement: T,
-  metadata: Metadata,
+  metadata: Partial<Metadata>,
   control: AdbControl
 ): void => {
   let startCoordinates: Coordinates | null = null;

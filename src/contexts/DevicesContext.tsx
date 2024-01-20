@@ -32,10 +32,12 @@ export const DevicesProvider: React.FC<{ children: ReactNode }> = ({
         if (device instanceof AdbDaemonWebUsbDevice) {
           const adbDevice = await AdbDevice.init(device);
           setDevice(adbDevice);
-          setIsLoading(false);
         }
+
+        setIsLoading(false);
       })
       .catch((e) => {
+        setIsLoading(false);
         console.log(e);
       });
   };
