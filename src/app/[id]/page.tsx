@@ -55,7 +55,7 @@ const StreamPanel = ({
       <div
         className={`h-full ${
           hasStream ? "w-auto" : "aspect-[9/16]"
-        } text-gray-900 [&>canvas]:h-full [&>canvas]:rounded-r-xl [&>canvas]:overflow-hidden relative z-10 rounded-r-xl ${
+        } text-gray-900 [&>video]:h-[calc(100% - 2.5rem)] [&>video]:rounded-xl [&>video]:overflow-hidden relative z-10 rounded-xl ${
           hasStream
             ? ""
             : "rounded-l-xl border border-gray-20 dark:border-gray-500"
