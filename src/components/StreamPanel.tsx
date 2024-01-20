@@ -46,7 +46,7 @@ const StreamPanel: React.FC<{
   return (
     <div
       ref={ref}
-      className={`h-full text-gray-900 [&>canvas]:h-full [&>canvas]:rounded-r-xl [&>canvas]:overflow-hidden relative z-10 rounded-r-xl ${
+      className={`h-full flex flex-col text-gray-900 [&>canvas]:h-[calc(100 - 2.5rem)] [&>canvas]:rounded-r-xl [&>canvas]:overflow-hidden relative z-10 rounded-r-xl ${
         device
           ? "w-fit"
           : "rounded-l-xl border border-gray-20 dark:border-gray-500 aspect-[9/16]"

@@ -15,7 +15,7 @@ const ControlBar: React.FC<{
   }, [showInit]);
 
   return (
-    <div className="flex items-center justify-center [&>button]:w-10 absolute rounded-xl -bottom-10 w-full h-10 bg-white">
+    <div className="flex items-center justify-center [&>button]:w-10 rounded-xl w-full h-10 bg-white">
       {show && (
         <>
           <button
