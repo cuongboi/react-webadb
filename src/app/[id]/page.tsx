@@ -55,13 +55,16 @@ const StreamPanel = ({
       <div
         className={`h-full ${
           hasStream ? "w-auto" : "aspect-[9/16]"
-        } text-gray-900 [&>video]:h-[calc(100% - 2.5rem)] [&>video]:rounded-xl [&>video]:overflow-hidden relative z-10 rounded-xl ${
+        } text-gray-900 flex flex-col relative z-10 rounded-xl ${
           hasStream
             ? ""
             : "rounded-l-xl border border-gray-20 dark:border-gray-500"
         }`}
       >
-        <video id="remote-video" className="w-full h-full" />
+        <video
+          id="remote-video"
+          className="h-[calc(100% - 2.5rem)] w-auto rounded-xl overflow-hidden"
+        />
         {hasStream && (
           <>
             <ControlBar control={control} show={hasStream} />
