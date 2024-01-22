@@ -25,3 +25,7 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.h-full > canvas {
+  height: calc(100% - 2.5rem);
+}
