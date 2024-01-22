@@ -46,10 +46,10 @@ const StreamPanel: React.FC<{
   return (
     <div
       ref={ref}
-      className={`h-full flex flex-col text-gray-900 [&>canvas]:h-[calc(100 - 2.5rem)] [&>canvas]:rounded-r-xl [&>canvas]:overflow-hidden relative z-10 rounded-r-xl ${
+      className={`h-full flex flex-col text-gray-900 [&>canvas]:h-[calc(100% - 2.5rem)] [&>canvas]:rounded-xl [&>canvas]:overflow-hidden relative z-10 rounded-r-xl ${
         device
           ? "w-fit"
-          : "rounded-l-xl border border-gray-20 dark:border-gray-500 aspect-[9/16]"
+          : "border border-gray-20 dark:border-gray-500 aspect-[9/16]"
       }
       ${isLoading && !device ? "border-none w-0" : ""}
       ${className ?? ""}`}
@@ -78,12 +78,12 @@ const StreamPanel: React.FC<{
                 </svg>
               </button>
 
-              <p className="text-white">
+              <p className="dark:text-white">
                 <a href={playUrl} target="_blank" rel="noreferrer">
                   {playUrl}
                 </a>
               </p>
-              <p>
+              <p className="p-2 md:p-5">
                 <QRCode value={playUrl} size={128} />
               </p>
             </div>
