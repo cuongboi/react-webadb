@@ -36,6 +36,8 @@ const StreamPanel = ({
 
       peerConnection.onData((data) => {
         if (data.type === "metadata") {
+          video.width = data.data?.width!;
+          video.height = data.data?.height!
           mouseControl(video, data.data, peerControl.control());
           keyboardControl(peerControl.control());
         }
@@ -51,7 +53,7 @@ const StreamPanel = ({
       className={`flex flex-col h-screen items-center justify-center p-0 lg:p-10`}
     >
       <div
-        className={`h-full ${
+        className={`h-full w-fit ${
           hasStream ? "w-auto" : "aspect-[9/16]"
         } text-gray-900 flex flex-col relative z-10 rounded-xl ${
           hasStream
